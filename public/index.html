@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviator Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- tailwind cdn  -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+</head>
+<body>
+    <div>
+        <!-- <header>
+            <h1>Aviator Game</h1>
+            <nav>
+              <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">How to Play</a></li>
+                <li><a href="#">Leaderboard</a></li>
+              </ul>
+            </nav>
+          </header> -->
+       <div class="container">
+        <main>
+          <section class="game-container">
+              <img src="plane waiting.png" alt="" id="plane-state">
+              <h2 class="text-xl text-gray-800 font-bold">Game Status: <span id="game-state">Waiting</span></h2>
+              <div class="game-area">
+                <!-- <div class="plane-container">
+                  <svg class="plane-icon" viewBox="0 0 24 24" width="48" height="48">
+                    <path d="M22 16.21v-1.895L14 8V4a2 2 0 0 0-4 0v4.105L2 14.42v1.789l8-2.81V18l-3 2v2l5-2 5 2v-2l-3-2v-4.685l8 2.895z"/>
+                  </svg>
+                </div> -->
+                <div class="altitude-container">
+                  <h3>Altitude: <span id="altitude">1.00x</span></h3>
+                </div>
+              </div>
+              <div class="controls">
+                <input type="number" id="bet-input" class="p-5" placeholder="Enter bet amount" min="1" step="1">
+                <div><button id="bet-button">Place Bet</button>
+                    <button id="cashout-button" disabled>Cash Out</button></div>
+              </div>
+              <div class="result-container">
+                <h3>Result: <span id="result"></span></h3>
+              </div>
+            </section>
+          </main>
+       </div>
+      </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
