@@ -13,13 +13,15 @@ const io = new Server(server);
 
 app.use(express.static('public'));
 
-const TICK_RATE = 50; // 20 times per second
-// const CRASH_PROBABILITY = 0.005; // 0.5% chance of crash per tick
-const CRASH_PROBABILITY = 0.0019; // 0.5% chance of crash per tick
+const TICK_RATE = 50; // 20 times per second send updates
+const CRASH_PROBABILITY = 0.005; // 0.5% chance of crash per tick
 let altitude = 1.00;
 let gameState = 'waiting';
 let players = new Map();
 let gameInterval;
+
+console.log(Math.random());
+
 
 function resetGame() {
   altitude = 1.00;
@@ -33,7 +35,7 @@ function startGame() {
   io.emit('gameStarted');
   gameInterval = setInterval(() => {
     if (gameState === 'flying') {
-      altitude += 0.005;
+      altitude += 0.003;
       if (Math.random() < CRASH_PROBABILITY) {
         gameState = 'crashed';
         io.emit('gameCrashed', altitude);
@@ -50,7 +52,7 @@ function startGame() {
 
 io.on('connection', (socket) => {
   console.log('A user connected');
-  socket.emit('gameState', { state: gameState, altitude: altitude });
+  socket.emit('gameState', { state: gameState, altitude: altitude});
 
   socket.on('placeBet', (amount) => {
     if (gameState === 'waiting') {
@@ -70,9 +72,7 @@ io.on('connection', (socket) => {
       socket.emit('cashOutSuccess', { altitude, winnings });
     }
   });
-
   socket.on('disconnect', () => {
-    console.log('User disconnected');
     players.delete(socket.id);
   });
 });
